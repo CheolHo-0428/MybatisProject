@@ -38,4 +38,9 @@ public class BoardDAO {
 		List<BoardVO> getBoardList = mybatis.selectList("BoardDAO.getBoardList", vo);
 		return getBoardList;
 	}
+	
+	public List<BoardVO> seqBoardList(BoardVO vo){
+		List<BoardVO> boardList = mybatis.selectList("BoardDAO.seqBoardList", vo);
+		return boardList;
+	}
 }

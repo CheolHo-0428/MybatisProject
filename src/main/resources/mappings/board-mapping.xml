@@ -3,25 +3,47 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="BoardDAO">
-	
+	<resultMap  id="boardResult" type="board">
+		<id property="seq" column="SEQ"/>
+		<result property="title" column="TITLE"/>
+		<result property="writer" column="WRITER"/>
+		<result property="content" column="CONTENT"/>
+		<result property="regdate" column="REGDATE" />
+		<result property="cnt" column="CNT"/>
+	</resultMap>
+
 	<insert id="insertBoard">
-		insert into BOARD(title, writer, content) values(#{title}, #{writer}, #{content})
+		<![CDATA[ 
+			INSERT INTO BOARD(title, writer, content) VALUES(#{title}, #{writer}, #{content})
+		]]>
 	</insert>
 	
 	<update id="updateBoard">
-		update BOARD set title=#{title}, content=#{content} where seq=#{seq}
+		<![CDATA[
+			UPDATE BOARD SET title=#{title}, content=#{content} WHERE seq=#{seq}
+	 	]]>
 	</update>
 	
 	<delete id="deleteBoard">
-		delete from BOARD where seq=#{seq}
+		<![CDATA[
+			DELETE FROM BOARD WHERE seq=#{seq}
+		]]>
 	</delete>
 	
 	<select id="getBoard" resultType="board">
-		select * from BOARD where seq=#{seq}
+		<![CDATA[
+			SELECT * FROM BOARD WHERE seq=#{seq}
+		]]>
 	</select>
 	
-	<select id="getBoardList" resultType="board">
-		select * from BOARD where title like concat('%', #{searchKeyword}, '%') order by seq desc
+	<select id="getBoardList" resultType="board" resultMap="boardResult">
+		<![CDATA[
+			SELECT * FROM BOARD WHERE #{searchCondition} LIKE CONCAT('%', #{searchKeyword}, '%') ORDER BY seq DESC
+		]]>	
+	</select>
+	
+	<select id="seqBoardList" resultType="board" resultMap="boardResult">
+		<![CDATA[SELECT * FROM BOARD WHERE seq >= #{seq}]]>
 	</select>
 	
 </mapper>

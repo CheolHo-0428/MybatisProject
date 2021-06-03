@@ -9,16 +9,23 @@ public class BoardServiceClient {
 		BoardDAO boardDAO = new BoardDAO();
 		
 		BoardVO vo = new BoardVO();
-		vo.setTitle("테스트1");
-		vo.setWriter("철코");
-		vo.setContent("테스트 중입니다.");
-		boardDAO.insertBoard(vo);
+//		vo.setTitle("테스트1");
+//		vo.setWriter("철코");
+//		vo.setContent("테스트 중입니다.");
+//		boardDAO.insertBoard(vo);
 		
+		vo.setSearchCondition("title");
 		vo.setSearchKeyword("");
 		
 		List<BoardVO> boardList = boardDAO.getBoardList(vo);
 		for(BoardVO board : boardList) {
-			System.out.println("---> " + board.toString());
+			System.out.println(board.toString());
 		}
+		
+//		vo.setSeq(10);
+//		List<BoardVO> boardList = boardDAO.seqBoardList(vo);
+//		for(BoardVO board : boardList) {
+//			System.out.println("-->"+board.toString());
+//		}
 	}
 }
